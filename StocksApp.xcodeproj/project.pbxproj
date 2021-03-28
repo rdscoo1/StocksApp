@@ -14,6 +14,13 @@
 		E8ACE3012610964C009EAC85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8ACE3002610964C009EAC85 /* Assets.xcassets */; };
 		E8ACE3042610964C009EAC85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8ACE3022610964C009EAC85 /* LaunchScreen.storyboard */; };
 		E8ACE34326109816009EAC85 /* StocksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE34226109816009EAC85 /* StocksListViewController.swift */; };
+		E8ACE3792610A165009EAC85 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8ACE37B2610A165009EAC85 /* Localizable.strings */; };
+		E8ACE3822610A1C8009EAC85 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3812610A1C8009EAC85 /* String+Ext.swift */; };
+		E8ACE38B2610A1F3009EAC85 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE38A2610A1F3009EAC85 /* UIColor+Ext.swift */; };
+		E8ACE3942610A2A2009EAC85 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3932610A2A2009EAC85 /* Colors.swift */; };
+		E8ACE3992610A2BC009EAC85 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3982610A2BC009EAC85 /* Images.swift */; };
+		E8ACE39E2610A2D0009EAC85 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE39D2610A2D0009EAC85 /* Constants.swift */; };
+		E8ACE3A32610A2E9009EAC85 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,15 @@
 		E8ACE3152610964C009EAC85 /* StocksAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StocksAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8ACE31B2610964D009EAC85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8ACE34226109816009EAC85 /* StocksListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListViewController.swift; sourceTree = "<group>"; };
+		E8ACE3752610A15A009EAC85 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E8ACE37A2610A165009EAC85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E8ACE37F2610A169009EAC85 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E8ACE3812610A1C8009EAC85 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		E8ACE38A2610A1F3009EAC85 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		E8ACE3932610A2A2009EAC85 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E8ACE3982610A2BC009EAC85 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		E8ACE39D2610A2D0009EAC85 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
 		EA6405CBA221434BDBECE359 /* Pods-StocksApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StocksApp.debug.xcconfig"; path = "Target Support Files/Pods-StocksApp/Pods-StocksApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +138,7 @@
 				E8ACE33A261097A5009EAC85 /* Modules */,
 				E8ACE33926109770009EAC85 /* Persistance */,
 				E8ACE33826109746009EAC85 /* Supporting Files */,
+				E8ACE36C2610A0EC009EAC85 /* Utilities */,
 			);
 			path = StocksApp;
 			sourceTree = "<group>";
@@ -176,6 +193,36 @@
 				E8ACE34226109816009EAC85 /* StocksListViewController.swift */,
 			);
 			path = StocksList;
+			sourceTree = "<group>";
+		};
+		E8ACE36C2610A0EC009EAC85 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E8ACE3892610A1D7009EAC85 /* Constants */,
+				E8ACE3802610A1B5009EAC85 /* Extensions */,
+				E8ACE37B2610A165009EAC85 /* Localizable.strings */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E8ACE3802610A1B5009EAC85 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E8ACE3812610A1C8009EAC85 /* String+Ext.swift */,
+				E8ACE38A2610A1F3009EAC85 /* UIColor+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E8ACE3892610A1D7009EAC85 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				E8ACE3932610A2A2009EAC85 /* Colors.swift */,
+				E8ACE3982610A2BC009EAC85 /* Images.swift */,
+				E8ACE39D2610A2D0009EAC85 /* Constants.swift */,
+				E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +313,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = E8ACE2E82610964B009EAC85;
 			productRefGroup = E8ACE2F22610964B009EAC85 /* Products */;
@@ -285,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8ACE3042610964C009EAC85 /* LaunchScreen.storyboard in Resources */,
+				E8ACE3792610A165009EAC85 /* Localizable.strings in Resources */,
 				E8ACE3012610964C009EAC85 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,10 +418,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8ACE3A32610A2E9009EAC85 /* LocalizationKey.swift in Sources */,
 				E8ACE2F52610964C009EAC85 /* AppDelegate.swift in Sources */,
 				E8ACE2FF2610964C009EAC85 /* StocksApp.xcdatamodeld in Sources */,
 				E8ACE2F72610964C009EAC85 /* SceneDelegate.swift in Sources */,
+				E8ACE3942610A2A2009EAC85 /* Colors.swift in Sources */,
+				E8ACE38B2610A1F3009EAC85 /* UIColor+Ext.swift in Sources */,
+				E8ACE3992610A2BC009EAC85 /* Images.swift in Sources */,
+				E8ACE3822610A1C8009EAC85 /* String+Ext.swift in Sources */,
 				E8ACE34326109816009EAC85 /* StocksListViewController.swift in Sources */,
+				E8ACE39E2610A2D0009EAC85 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,8 +465,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				E8ACE3032610964C009EAC85 /* Base */,
+				E8ACE3752610A15A009EAC85 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E8ACE37B2610A165009EAC85 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8ACE37A2610A165009EAC85 /* en */,
+				E8ACE37F2610A169009EAC85 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -421,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -482,6 +548,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
