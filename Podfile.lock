@@ -1,0 +1,20 @@
+PODS:
+  - SkeletonView (1.13.0)
+  - SwiftLint (0.43.1)
+
+DEPENDENCIES:
+  - SkeletonView
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - SkeletonView
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  SkeletonView: 2b14cb767a7da384d17d5d7e1db0d55a6cf9566a
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+
+PODFILE CHECKSUM: 132dcbadee4b9f7111c88818616fe8067d446b0c
+
+COCOAPODS: 1.10.1
