@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  StocksApp
-//
-//  Created by Roman Khodukin on 3/28/21.
-//
-
 import UIKit
 import CoreData
 

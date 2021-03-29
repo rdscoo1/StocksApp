@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  StocksApp
-//
-//  Created by Roman Khodukin on 3/28/21.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

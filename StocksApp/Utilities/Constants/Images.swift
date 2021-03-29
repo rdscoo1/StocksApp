@@ -1,5 +1,7 @@
 import UIKit
 
 extension UIImage {
-    static let image = UIImage(imageLiteralResourceName: "image")
+    static let starIcon = UIImage(imageLiteralResourceName: "StarIcon")
+    static let rectangleArrowUp = UIImage(imageLiteralResourceName: "rectangleArrowUp")
+    static let rectangleArrowDown = UIImage(imageLiteralResourceName: "rectangleArrowDown")
 }

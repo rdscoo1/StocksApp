@@ -14,53 +14,54 @@ extension Constants {
             }
         }
 
-        static var alertText: UIColor {
+        static var labelColor: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
                         UIColor(hex: "#FFFFFF") :
-                        UIColor(hex: "#001424")
+                        UIColor(hex: "#000000")
                 }
             } else {
-                return UIColor(hex: "#001424")
+                return UIColor(hex: "#FFFFFF")
             }
         }
 
+        // MARK: - StockCell background
 
-        static var buttonBackground: UIColor {
+        static var cellBackgroundColor: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
-                        UIColor(hex: "#FFFFFF", alpha: 0.2) :
-                        UIColor(hex: "#F6F6F6")
+                        UIColor(hex: "#19191B") :
+                        UIColor(hex: "#F0F4F7")
                 }
             } else {
-                return UIColor(hex: "#F6F6F6")
+                return UIColor(hex: "#F0F4F7")
             }
         }
 
-        static var buttonText: UIColor {
+        static var cellHighlightedBackgroundColor: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
-                        UIColor(hex: "#FFFFFF") :
-                        UIColor(hex: "#007AFF")
+                        UIColor(hex: "#00060B") :
+                        UIColor(hex: "#D1DBE3")
                 }
             } else {
-                return UIColor(hex: "#007AFF")
+                return UIColor(hex: "#D1DBE3")
             }
         }
 
-        static var profileLogoBackground: UIColor {
-            if #available(iOS 13.0, *) {
-                return UIColor { (traits) -> UIColor in
-                    return traits.userInterfaceStyle == .dark ?
-                        UIColor(hex: "#E4E82B", alpha: 0.5) :
-                        UIColor(hex: "#E4E82B")
-                }
-            } else {
-                return UIColor(hex: "#E4E82B")
-            }
-        }
+        // MARK: - Favorite button colors
+
+        static let favoriteButtonGray = UIColor(hex: "#BABABA")
+
+        static let isFavoriteButtonYellow = UIColor(hex: "#FFCA1C")
+
+        // MARK: - Price change accent colors
+
+        static let redColor = UIColor(hex: "#B22424")
+
+        static let greenColor = UIColor(hex: "#24B25D")
     }
 }

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		943546C82C0BCC30B06AC2A0 /* Pods_StocksApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88BE4FC5D47BE3164BE43E35 /* Pods_StocksApp.framework */; };
+		E83887D026114CB700C21A55 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83887CF26114CB700C21A55 /* UIImage+Ext.swift */; };
+		E83887EF26117E4F00C21A55 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83887EE26117E4F00C21A55 /* TabView.swift */; };
+		E83887F726117FF100C21A55 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83887F626117FF100C21A55 /* ChartViewController.swift */; };
+		E83887FF2611800E00C21A55 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83887FE2611800E00C21A55 /* NewsViewController.swift */; };
+		E83888042611802800C21A55 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83888032611802800C21A55 /* SummaryViewController.swift */; };
 		E8ACE2F52610964C009EAC85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE2F42610964C009EAC85 /* AppDelegate.swift */; };
 		E8ACE2F72610964C009EAC85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE2F62610964C009EAC85 /* SceneDelegate.swift */; };
 		E8ACE2FF2610964C009EAC85 /* StocksApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE2FD2610964C009EAC85 /* StocksApp.xcdatamodeld */; };
@@ -21,6 +26,16 @@
 		E8ACE3992610A2BC009EAC85 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3982610A2BC009EAC85 /* Images.swift */; };
 		E8ACE39E2610A2D0009EAC85 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE39D2610A2D0009EAC85 /* Constants.swift */; };
 		E8ACE3A32610A2E9009EAC85 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */; };
+		E8ACE3A82610A60B009EAC85 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3A72610A60B009EAC85 /* StockCell.swift */; };
+		E8ACE3AD2610A6EB009EAC85 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3AC2610A6EB009EAC85 /* ConfigurableView.swift */; };
+		E8ACE3BA2610B1B2009EAC85 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3B92610B1B2009EAC85 /* Stock.swift */; };
+		E8ACE3D62610BA7B009EAC85 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3D52610BA7B009EAC85 /* NetworkService.swift */; };
+		E8ACE3EB2610C317009EAC85 /* StocksListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3EA2610C317009EAC85 /* StocksListTableViewDataSource.swift */; };
+		E8ACE3F32610C378009EAC85 /* StocksListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3F22610C378009EAC85 /* StocksListTableViewDelegate.swift */; };
+		E8ACE3FF2610C4DF009EAC85 /* StockDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE3FE2610C4DF009EAC85 /* StockDetailsViewController.swift */; };
+		E8ACE4082610D48D009EAC85 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE4072610D48D009EAC85 /* RequestError.swift */; };
+		E8ACE40D2610D4B0009EAC85 /* Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE40C2610D4B0009EAC85 /* Logo.swift */; };
+		E8ACE4162610EEB8009EAC85 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8ACE4152610EEB8009EAC85 /* UIImageView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +58,11 @@
 /* Begin PBXFileReference section */
 		88BE4FC5D47BE3164BE43E35 /* Pods_StocksApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StocksApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8B0F6E6D21984AFFAE490B6 /* Pods-StocksApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StocksApp.release.xcconfig"; path = "Target Support Files/Pods-StocksApp/Pods-StocksApp.release.xcconfig"; sourceTree = "<group>"; };
+		E83887CF26114CB700C21A55 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		E83887EE26117E4F00C21A55 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		E83887F626117FF100C21A55 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		E83887FE2611800E00C21A55 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		E83888032611802800C21A55 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		E8ACE2F12610964B009EAC85 /* StocksApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StocksApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8ACE2F42610964C009EAC85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8ACE2F62610964C009EAC85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +84,16 @@
 		E8ACE3982610A2BC009EAC85 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		E8ACE39D2610A2D0009EAC85 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
+		E8ACE3A72610A60B009EAC85 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
+		E8ACE3AC2610A6EB009EAC85 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
+		E8ACE3B92610B1B2009EAC85 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		E8ACE3D52610BA7B009EAC85 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		E8ACE3EA2610C317009EAC85 /* StocksListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListTableViewDataSource.swift; sourceTree = "<group>"; };
+		E8ACE3F22610C378009EAC85 /* StocksListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListTableViewDelegate.swift; sourceTree = "<group>"; };
+		E8ACE3FE2610C4DF009EAC85 /* StockDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsViewController.swift; sourceTree = "<group>"; };
+		E8ACE4072610D48D009EAC85 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		E8ACE40C2610D4B0009EAC85 /* Logo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logo.swift; sourceTree = "<group>"; };
+		E8ACE4152610EEB8009EAC85 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		EA6405CBA221434BDBECE359 /* Pods-StocksApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StocksApp.debug.xcconfig"; path = "Target Support Files/Pods-StocksApp/Pods-StocksApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +140,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E83887F326117F8A00C21A55 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				E83887FE2611800E00C21A55 /* NewsViewController.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		E83887F426117FD400C21A55 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				E83888032611802800C21A55 /* SummaryViewController.swift */,
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
+		E83887F526117FDF00C21A55 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				E83887F626117FF100C21A55 /* ChartViewController.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		E8ACE2E82610964B009EAC85 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +189,7 @@
 		E8ACE2F32610964B009EAC85 /* StocksApp */ = {
 			isa = PBXGroup;
 			children = (
+				E8ACE3BE2610B6B3009EAC85 /* Services */,
 				E8ACE33A261097A5009EAC85 /* Modules */,
 				E8ACE33926109770009EAC85 /* Persistance */,
 				E8ACE33826109746009EAC85 /* Supporting Files */,
@@ -174,6 +229,7 @@
 		E8ACE33926109770009EAC85 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
+				E8ACE3B82610B1A3009EAC85 /* Models */,
 				E8ACE2FD2610964C009EAC85 /* StocksApp.xcdatamodeld */,
 			);
 			path = Persistance;
@@ -182,6 +238,7 @@
 		E8ACE33A261097A5009EAC85 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E8ACE3F72610C44C009EAC85 /* StockDetails */,
 				E8ACE34126109800009EAC85 /* StocksList */,
 			);
 			path = Modules;
@@ -191,6 +248,9 @@
 			isa = PBXGroup;
 			children = (
 				E8ACE34226109816009EAC85 /* StocksListViewController.swift */,
+				E8ACE3A72610A60B009EAC85 /* StockCell.swift */,
+				E8ACE3EA2610C317009EAC85 /* StocksListTableViewDataSource.swift */,
+				E8ACE3F22610C378009EAC85 /* StocksListTableViewDelegate.swift */,
 			);
 			path = StocksList;
 			sourceTree = "<group>";
@@ -201,6 +261,7 @@
 				E8ACE3892610A1D7009EAC85 /* Constants */,
 				E8ACE3802610A1B5009EAC85 /* Extensions */,
 				E8ACE37B2610A165009EAC85 /* Localizable.strings */,
+				E8ACE3AC2610A6EB009EAC85 /* ConfigurableView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -210,6 +271,8 @@
 			children = (
 				E8ACE3812610A1C8009EAC85 /* String+Ext.swift */,
 				E8ACE38A2610A1F3009EAC85 /* UIColor+Ext.swift */,
+				E8ACE4152610EEB8009EAC85 /* UIImageView+Ext.swift */,
+				E83887CF26114CB700C21A55 /* UIImage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -221,8 +284,38 @@
 				E8ACE3982610A2BC009EAC85 /* Images.swift */,
 				E8ACE39D2610A2D0009EAC85 /* Constants.swift */,
 				E8ACE3A22610A2E9009EAC85 /* LocalizationKey.swift */,
+				E8ACE4072610D48D009EAC85 /* RequestError.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		E8ACE3B82610B1A3009EAC85 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E8ACE3B92610B1B2009EAC85 /* Stock.swift */,
+				E8ACE40C2610D4B0009EAC85 /* Logo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E8ACE3BE2610B6B3009EAC85 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E8ACE3D52610BA7B009EAC85 /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E8ACE3F72610C44C009EAC85 /* StockDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E83887F526117FDF00C21A55 /* Chart */,
+				E83887F426117FD400C21A55 /* Summary */,
+				E83887F326117F8A00C21A55 /* News */,
+				E8ACE3FE2610C4DF009EAC85 /* StockDetailsViewController.swift */,
+				E83887EE26117E4F00C21A55 /* TabView.swift */,
+			);
+			path = StockDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,16 +511,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E83887EF26117E4F00C21A55 /* TabView.swift in Sources */,
+				E83887F726117FF100C21A55 /* ChartViewController.swift in Sources */,
+				E83887D026114CB700C21A55 /* UIImage+Ext.swift in Sources */,
 				E8ACE3A32610A2E9009EAC85 /* LocalizationKey.swift in Sources */,
 				E8ACE2F52610964C009EAC85 /* AppDelegate.swift in Sources */,
+				E8ACE40D2610D4B0009EAC85 /* Logo.swift in Sources */,
 				E8ACE2FF2610964C009EAC85 /* StocksApp.xcdatamodeld in Sources */,
+				E8ACE3FF2610C4DF009EAC85 /* StockDetailsViewController.swift in Sources */,
 				E8ACE2F72610964C009EAC85 /* SceneDelegate.swift in Sources */,
+				E8ACE3A82610A60B009EAC85 /* StockCell.swift in Sources */,
+				E8ACE3BA2610B1B2009EAC85 /* Stock.swift in Sources */,
+				E8ACE3D62610BA7B009EAC85 /* NetworkService.swift in Sources */,
+				E8ACE4082610D48D009EAC85 /* RequestError.swift in Sources */,
+				E8ACE3F32610C378009EAC85 /* StocksListTableViewDelegate.swift in Sources */,
+				E83888042611802800C21A55 /* SummaryViewController.swift in Sources */,
 				E8ACE3942610A2A2009EAC85 /* Colors.swift in Sources */,
+				E83887FF2611800E00C21A55 /* NewsViewController.swift in Sources */,
 				E8ACE38B2610A1F3009EAC85 /* UIColor+Ext.swift in Sources */,
 				E8ACE3992610A2BC009EAC85 /* Images.swift in Sources */,
 				E8ACE3822610A1C8009EAC85 /* String+Ext.swift in Sources */,
+				E8ACE3AD2610A6EB009EAC85 /* ConfigurableView.swift in Sources */,
+				E8ACE4162610EEB8009EAC85 /* UIImageView+Ext.swift in Sources */,
 				E8ACE34326109816009EAC85 /* StocksListViewController.swift in Sources */,
 				E8ACE39E2610A2D0009EAC85 /* Constants.swift in Sources */,
+				E8ACE3EB2610C317009EAC85 /* StocksListTableViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,7 +642,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -590,7 +698,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
