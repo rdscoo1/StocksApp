@@ -1,24 +1,30 @@
 PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - SkeletonView (1.13.0)
   - SnapKit (5.0.1)
   - SwiftLint (0.43.1)
 
 DEPENDENCIES:
+  - Charts
   - SkeletonView
   - SnapKit
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - Charts
     - SkeletonView
     - SnapKit
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   SkeletonView: 2b14cb767a7da384d17d5d7e1db0d55a6cf9566a
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: 24a81979d032e6cd5919d7f0ffb874aacab3bb4a
+PODFILE CHECKSUM: 594a53d8e4a292df503278d005b7a58ce464bc41
 
 COCOAPODS: 1.10.1

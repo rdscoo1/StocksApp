@@ -10,5 +10,6 @@ target 'StocksApp' do
   pod 'SwiftLint'
   pod 'SkeletonView'
   pod 'SnapKit'
+  pod 'Charts'
 
 end
