@@ -2,3 +2,15 @@
 // MARK: - Navigation Title
 
 "Stocks" = "Акции";
+
+// MARK: - Settings
+
+"Settings" = "Настройки";
+"Leave a rating" = "Оценить приложение";
+"Support the developer's free side project!" = "Поддержите бесплатный проект разработчика!";
+"Share the app" = "Поделиться приложением";
+"Share this app with your friends!" = "Поделитесь этим приложением с друзьями!";
+"Send feedback" = "Обратная связь";
+"Email thoughts, bugs, or questions." = "Присылайте баги или вопросы по электронной почте.";
+"Developed by" =  "Разработано";
+"Version" = "Версия";

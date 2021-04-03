@@ -23,7 +23,7 @@ class StockCell: UITableViewCell {
         label.text = "sfgsdgadgasdagsgsagsaadffadgdfgdfa"
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.textColor = Constants.Colors.labelColor
+        label.textColor = Constants.Colors.label
         return label
     }()
 
@@ -32,7 +32,7 @@ class StockCell: UITableViewCell {
         label.text = "Company Name"
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = Constants.Colors.labelColor
+        label.textColor = Constants.Colors.label
         return label
     }()
 
@@ -41,7 +41,7 @@ class StockCell: UITableViewCell {
         label.text = "Price"
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.textColor = Constants.Colors.labelColor
+        label.textColor = Constants.Colors.label
         return label
     }()
 
@@ -50,7 +50,7 @@ class StockCell: UITableViewCell {
         label.text = "Price Change"
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = Constants.Colors.labelColor
+        label.textColor = Constants.Colors.label
         return label
     }()
 
@@ -92,9 +92,9 @@ class StockCell: UITableViewCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
          super.setHighlighted(highlighted, animated: animated)
          if highlighted {
-             containerView.backgroundColor = Constants.Colors.cellHighlightedBackgroundColor
+             containerView.backgroundColor = Constants.Colors.cellHighlightedBackground
          } else {
-            containerView.backgroundColor = Constants.Colors.cellBackgroundColor
+            containerView.backgroundColor = Constants.Colors.cellBackground
          }
     }
 

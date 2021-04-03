@@ -1,186 +1,145 @@
 import UIKit
 
+enum Cells {
+    case chart
+    case news
+    case summary
+}
+
 class StockDetailsViewController: UIViewController {
 
-    private let menuScrollView = UIScrollView()
-    private let containerView = UIView()
+    // MARK: - UI
 
-    private var currentController: UIViewController! {
-        didSet {
-            add(asChildViewController: currentController)
-        }
-        willSet {
-            guard let _ = currentController else {
-                return
-            }
-            remove(asChildViewController: currentController)
-        }
-    }
+    private let menuViewController = MenuController(collectionViewLayout: UICollectionViewFlowLayout())
+    private let cells: [Cells] = [.chart, .summary, .news]
 
-    private lazy var chartController: ChartViewController = {
-        return ChartViewController()
+    private lazy var collectionView: UICollectionView = {
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.dataSource = self
+        cv.delegate = self
+        cv.backgroundColor = .white
+        cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
+        cv.isPagingEnabled = true
+        cv.bounces = false
+        return cv
     }()
 
-    private lazy var newsController: NewsViewController = {
-        return NewsViewController()
+    private lazy var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        return layout
     }()
 
-    private lazy var summaryController: SummaryViewController = {
-        return SummaryViewController()
-    }()
+    // MARK: - Public Property
 
-    private var selectedTab: Int = 0 {
-        didSet {
-            guard let tabView = menuScrollView.subviews[selectedTab] as? TabView else {
-                return
-            }
-            tabView.setupActiveView()
-            if selectedTab == 0 {
-                currentController = chartController
+    var symbol: String = ""
 
-            } else if selectedTab == 1 {
-                currentController = newsController
-
-            } else if selectedTab == 2 {
-                currentController = summaryController
-            }
-        }
-        willSet {
-            guard let tabView = menuScrollView.subviews[selectedTab] as? TabView else {
-                return
-            }
-            tabView.setupDefaultView()
-        }
-    }
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
+
+        view.backgroundColor = .white
+
+        menuViewController.delegate = self
+        setupLayout()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
+    // MARK: - Private Methods
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
+    private func setupLayout() {
 
-    @objc
-    private func didTapOnHistoryBarButtonItem(_ sender: UIBarButtonItem) {
-        switch selectedTab {
-        case 0:
-            showCharts()
-        case 1:
-            showNews()
-        case 2:
-            showSummary()
-        default:
-            return
-        }
-    }
+        // registering cells (viewControllers)
+        collectionView.register(ChartContainerCell.self, forCellWithReuseIdentifier: ChartContainerCell.reuseId)
+        collectionView.register(SummaryContainerCell.self, forCellWithReuseIdentifier: SummaryContainerCell.reuseId)
+        collectionView.register(NewsContainerCell.self, forCellWithReuseIdentifier: NewsContainerCell.reuseId)
 
-    // MARK: - Public methods
+        guard let menuView = menuViewController.view else { return }
 
-    private var selectedIndexTab: Int?
-
-    func setTab(at index: Int) {
-        selectedIndexTab = index
-        if menuScrollView != nil {
-            selectedTab = index
-        }
-    }
-
-    // MARK: - Rounting
-
-    private func showCharts() {
-        let controller = ChartViewController()
-        navigationController?.pushViewController(controller, animated: true)
-    }
-
-    private func showNews() {
-        let controller = NewsViewController()
-        navigationController?.pushViewController(controller, animated: true)
-    }
-
-    private func showSummary() {
-        let controller = SummaryViewController()
-        navigationController?.pushViewController(controller, animated: true)
-    }
-
-    // MARK: - Configure View Controllers
-
-    private func add(asChildViewController viewController: UIViewController) {
-        addChild(viewController)
-        containerView.addSubview(viewController.view)
-        viewController.view.frame = containerView.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParent: self)
-    }
-
-    private func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParent: nil)
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParent()
-    }
-
-}
-
-extension StockDetailsViewController: SelectedTabViewProtocol {
-
-    func didSelectTab(_ index: Int) {
-        selectedTab = index
-    }
-
-}
-
-extension StockDetailsViewController {
-
-    // MARK: - Start Configure View
-
-    private func setupUI() {
-        view.addSubview(containerView)
-        view.addSubview(menuScrollView)
-
-        menuScrollView.snp.makeConstraints {
-            $0.height.equalTo(48)
+        view.addSubview(menuView)
+        view.addSubview(collectionView)
+        menuView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.height.equalTo(64)
         }
 
-        containerView.snp.makeConstraints {
-            $0.bottom.left.right.equalToSuperview()
-            $0.top.equalTo(menuScrollView.snp.bottom)
+        collectionView.snp.makeConstraints {
+            $0.left.right.bottom.equalToSuperview()
+            $0.top.equalTo(menuView.snp.bottom)
+        }
+
+        menuViewController.collectionView.selectItem(at: [0, 0], animated: true, scrollPosition: .centeredHorizontally)
+    }
+}
+
+// MARK: - Scroll View setup
+
+extension StockDetailsViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.x
+        let offset = x / 3
+        menuViewController.menuBar.transform = CGAffineTransform(translationX: offset, y: 0)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        let item = Int(scrollView.contentOffset.x / view.frame.width)
+        let indexPath = IndexPath(item: item, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let x = targetContentOffset.pointee.x
+        let item = Int(x / view.frame.width)
+        let indexPath = IndexPath(item: item, section: 0)
+        menuViewController.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension StockDetailsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch cells[indexPath.row] {
+        case .chart:
+            guard let chartCell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartContainerCell.reuseId, for: indexPath) as? ChartContainerCell else {
+                return UICollectionViewCell()
+            }
+            return chartCell
+        case.summary:
+            guard let summaryCell = collectionView.dequeueReusableCell(withReuseIdentifier: SummaryContainerCell.reuseId, for: indexPath) as? SummaryContainerCell else {
+                return UICollectionViewCell()
+            }
+            return summaryCell
+        case .news:
+            guard let newsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsContainerCell.reuseId, for: indexPath) as? NewsContainerCell else {
+                return UICollectionViewCell()
+            }
+            return newsCell
         }
     }
+}
 
-    private func configureView() {
-        setupUI()
-        setupMenu()
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension StockDetailsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        return .init(width: view.frame.width, height: view.frame.height - 60 - 44 - statusBarFrameHeight)
+
     }
+}
 
-    private func setupMenu() {
-        let titles: [String] = [
-            "Charts",
-            "News",
-            "Summary"
-        ]
+// MARK: - MenuControllerDelegate
 
-        let marginTop: CGFloat = 5
-        let margin: CGFloat = 10
-        var x: CGFloat = margin
-
-        for index in 0..<titles.count {
-            let size = CGRect(x: x, y: marginTop, width: TabView.width, height: TabView.height)
-            let tabView = TabView(frame: size, title: titles[index])
-            tabView.delegate = self
-            tabView.tag = index
-            menuScrollView.addSubview(tabView)
-            x += (TabView.width + margin)
-        }
-        menuScrollView.contentSize = CGSize(width: x, height: TabView.height)
-        selectedTab = selectedIndexTab ?? 0
+extension StockDetailsViewController: MenuControllerDelegate {
+    func didTapMenuItem(indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
-
 }

@@ -2,3 +2,15 @@
 // MARK: - Navigation Title
 
 "Stocks" = "Stocks";
+
+// MARK: - Settings
+
+"Settings" = "Settings";
+"Leave a rating" = "Leave a rating";
+"Support the developer's free side project!" = "Support the developer's free side project!";
+"Share the app" = "Share the app";
+"Share this app with your friends!" = "Share this app with your friends!";
+"Send feedback" = "Send feedback";
+"Email thoughts, bugs, or questions." = "Email thoughts, bugs, or questions.";
+"Developed by" =  "Developed by";
+"Version" = "Version";

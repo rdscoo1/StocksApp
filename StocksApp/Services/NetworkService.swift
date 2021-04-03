@@ -41,6 +41,32 @@ class NetworkService {
         }
     }
 
+    func requestNewsFor(symbol: String, quantity: Int = 20, completion: @escaping (Result<[News], RequestError>) -> Void) {
+        let path = "\(symbol)/news/last/\(quantity)"
+
+        makeRequest([News].self, path: path) { response in
+            switch response {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let news):
+                completion(.success(news))
+            }
+        }
+    }
+
+    func requestCompanyInfo(symbol: String, completion: @escaping (Result<Company, RequestError>) -> Void) {
+        let path = "\(symbol)/company"
+
+        makeRequest(Company.self, path: path) { response in
+            switch response {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let company):
+                completion(.success(company))
+            }
+        }
+    }
+
     // MARK: - Private method
 
     private func makeRequest<T: Decodable>(_ model: T.Type,
@@ -51,10 +77,8 @@ class NetworkService {
         let configuration = createConfiguration()
         let session = URLSession(configuration: configuration)
 
-        print(request)
-
         session.dataTask(with: request) { (data, response, error) in
-            //            print("↩️ ↩️ ↩️ Data request: \(String(describing: String(data: data ?? Data(), encoding: .utf8)))")
+//                        print("↩️ ↩️ ↩️ Data request: \(String(describing: String(data: data ?? Data(), encoding: .utf8)))")
             guard error == nil else {
                 DispatchQueue.main.async {
                     completion(.failure(.client))
@@ -85,6 +109,7 @@ class NetworkService {
                 }
             } catch {
                 DispatchQueue.main.async {
+                    print(error)
                     completion(.failure(.unableToDecode))
                 }
             }

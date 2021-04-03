@@ -14,7 +14,7 @@ extension Constants {
             }
         }
 
-        static var labelColor: UIColor {
+        static var label: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
@@ -28,7 +28,7 @@ extension Constants {
 
         // MARK: - StockCell background
 
-        static var cellBackgroundColor: UIColor {
+        static var cellBackground: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
@@ -40,7 +40,7 @@ extension Constants {
             }
         }
 
-        static var cellHighlightedBackgroundColor: UIColor {
+        static var cellHighlightedBackground: UIColor {
             if #available(iOS 13.0, *) {
                 return UIColor { (traits) -> UIColor in
                     return traits.userInterfaceStyle == .dark ?
@@ -63,5 +63,19 @@ extension Constants {
         static let redColor = UIColor(hex: "#B22424")
 
         static let greenColor = UIColor(hex: "#24B25D")
+
+        // MARK: - Settings background
+
+        static var settingsBackground: UIColor {
+            if #available(iOS 13.0, *) {
+                return UIColor { (traits) -> UIColor in
+                    return traits.userInterfaceStyle == .dark ?
+                        UIColor(hex: "#3A3A3C") :
+                        UIColor(hex: "#D1D1D6")
+                }
+            } else {
+                return UIColor(hex: "#D1D1D6")
+            }
+        }
     }
 }

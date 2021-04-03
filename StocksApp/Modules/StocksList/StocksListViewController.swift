@@ -9,6 +9,7 @@ class StocksListViewController: UIViewController {
     private var stocks: [Stock] = []
     private var logos: [Logo] = []
     private let networkService = NetworkService()
+    private let tableViewDataSource = StocksListTableViewDataSource()
 
     // MARK: - UI
 
@@ -17,7 +18,7 @@ class StocksListViewController: UIViewController {
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseId)
         tableView.separatorStyle = .none
         tableView.rowHeight = 64
-        tableView.dataSource = self
+        tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         return tableView
     }()
@@ -30,6 +31,7 @@ class StocksListViewController: UIViewController {
         tableView.backgroundColor = Constants.Colors.appTheme
         configureConstraints()
         requestCompanies()
+        configureNavBarButton()
     }
 
     // MARK: - Private Methods
@@ -41,7 +43,7 @@ class StocksListViewController: UIViewController {
             case .failure(let error):
                 print(error.reason)
             case .success(let items):
-                self.stocks = items
+                self.tableViewDataSource.stocks = items
                 self.tableView.reloadData()
                 self.requestCompanyLogos()
             }
@@ -85,37 +87,30 @@ class StocksListViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
     }
-}
 
-// MARK: - UITableViewDataSource
-
-extension StocksListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stocks.count
+    private func configureNavBarButton() {
+        let settingsBarButton = UIBarButtonItem(image: .settingsIcon, style: .plain, target: self, action: #selector(didTapOnSettings))
+        settingsBarButton.tintColor = .darkGray
+        navigationItem.leftBarButtonItem = settingsBarButton
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.reuseId) as? StockCell else {
-            return UITableViewCell()
-        }
-
-        let stock = stocks[indexPath.row]
-        cell.configure(with: stock)
-//        cell.setupImage(with: logoUrl)
-
-        return cell
+    @objc private func didTapOnSettings() {
+        let settingsViewController = SettingsViewController()
+        let navController = UINavigationController(rootViewController: settingsViewController)
+        navigationController?.present(navController, animated: true)
     }
 }
 
 extension StocksListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedIndex = tableView.indexPathForSelectedRow else {
-            return
-        }
+//        guard let selectedIndex = tableView.indexPathForSelectedRow else {
+//            return
+//        }
 
+//        print(selectedIndex)
         let stockDetailsVC = StockDetailsViewController()
-//        let quote = stocks[selectedIndex.row]
-//        stockDetailsVC.quoteName = quote.name
+//        let stock = stocks[selectedIndex.row]
+//        stockDetailsVC.symbol = stock.symbol
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.pushViewController(stockDetailsVC, animated: true)
@@ -123,55 +118,3 @@ extension StocksListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-//
-// extension Double {
-//    func convertUnixTimestampToDate() -> String {
-//        let date = Date(timeIntervalSince1970: self)
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeStyle = DateFormatter.Style.short
-//        dateFormatter.dateStyle = DateFormatter.Style.medium
-//        dateFormatter.timeZone = .current
-//
-//        return dateFormatter.string(from: date)
-//    }
-// }
-//    private func addFavoriteBarButton() {
-//        let defaults = UserDefaults.standard
-//        let favoriteArray = defaults.object(forKey: UserDefaultsKey.favoritesKey) as? [String] ?? [String]()
-//        let isFavorite = favoriteArray.contains(stock.symbol)
-//
-//        let starAttributes: [NSAttributedString.Key: Any] =
-//            [.foregroundColor: isFavorite ? #colorLiteral(red: 1, green: 0.7927889228, blue: 0.1083463505, alpha: 1) : #colorLiteral(red: 0.7293394804, green: 0.7294487357, blue: 0.7293244004, alpha: 1), .font: UIFont.boldSystemFont(ofSize: 20)]
-//        let item = UIBarButtonItem(title: "★", style: .plain, target: self, action: #selector(toggleFavoriteBarButton))
-//        item.setTitleTextAttributes(starAttributes, for: .normal)
-//
-//        navigationItem.rightBarButtonItem = item
-//    }
-
-//    @objc private func toggleFavoriteBarButton() {
-//        let defaults = UserDefaults.standard
-//        var favoriteArray = defaults.object(forKey: UserDefaultsKey.favoritesKey) as? [String] ?? [String]()
-//        let wasFavorite = favoriteArray.contains(stock.symbol)
-//
-//        if wasFavorite {
-//            favoriteArray.removeAll { $0 == stock.symbol }
-//        } else {
-//            favoriteArray.append(stock.symbol)
-//        }
-//
-//        defaults.setValue(favoriteArray, forKey: UserDefaultsKey.favoritesKey)
-//
-//
-//        let starAttributes: [NSAttributedString.Key: Any] =
-//            [.foregroundColor: wasFavorite ? #colorLiteral(red: 0.7293394804, green: 0.7294487357, blue: 0.7293244004, alpha: 1) : #colorLiteral(red: 1, green: 0.7927889228, blue: 0.1083463505, alpha: 1) , .font: UIFont.boldSystemFont(ofSize: 20)]
-//
-//        let item = UIBarButtonItem(title: "★", style: .plain, target: self, action: #selector(toggleFavoriteBarButton))
-//        item.setTitleTextAttributes(starAttributes, for: .normal)
-//
-//        navigationItem.rightBarButtonItem = item
-//
-//        NotificationCenter.default.post(name: Notification.Name(NotificationCenterName.FavoriteStocksChange),
-//                                        object: nil)
-//    }
