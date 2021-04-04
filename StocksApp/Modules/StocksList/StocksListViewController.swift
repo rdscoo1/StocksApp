@@ -7,7 +7,6 @@ class StocksListViewController: UIViewController {
     // MARK: - Private Properties
 
     private var stocks: [Stock] = []
-    private var logos: [Logo] = []
     private let networkService = NetworkService()
     private let tableViewDataSource = StocksListTableViewDataSource()
 
@@ -18,7 +17,7 @@ class StocksListViewController: UIViewController {
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.reuseId)
         tableView.separatorStyle = .none
         tableView.rowHeight = 64
-        tableView.dataSource = tableViewDataSource
+        tableView.dataSource = self
         tableView.delegate = self
         return tableView
     }()
@@ -43,24 +42,8 @@ class StocksListViewController: UIViewController {
             case .failure(let error):
                 print(error.reason)
             case .success(let items):
-                self.tableViewDataSource.stocks = items
+                self.stocks = items
                 self.tableView.reloadData()
-                self.requestCompanyLogos()
-            }
-        }
-    }
-
-    private func requestCompanyLogos() {
-        for stock in stocks {
-            networkService.requestLogoUrl(for: stock.companyName) { response in
-                switch response {
-                case .failure(let error):
-                    print(error.reason)
-                case .success(let imageUrl):
-                    self.logos.append(Logo(url: imageUrl))
-                    print(self.logos)
-                    self.tableView.reloadData()
-                }
             }
         }
     }
@@ -101,16 +84,37 @@ class StocksListViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource Conformance
+
+extension StocksListViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return stocks.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.reuseId) as? StockCell else {
+            return UITableViewCell()
+        }
+
+        let quote = stocks[indexPath.row]
+        cell.configure(with: quote)
+
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate Conformance
+
 extension StocksListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let selectedIndex = tableView.indexPathForSelectedRow else {
-//            return
-//        }
+        guard let selectedIndex = tableView.indexPathForSelectedRow else {
+            return
+        }
 
-//        print(selectedIndex)
         let stockDetailsVC = StockDetailsViewController()
-//        let stock = stocks[selectedIndex.row]
-//        stockDetailsVC.symbol = stock.symbol
+        let stock = stocks[selectedIndex.row]
+        stockDetailsVC.symbol = stock.symbol
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.pushViewController(stockDetailsVC, animated: true)

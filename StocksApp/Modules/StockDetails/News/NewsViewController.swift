@@ -17,6 +17,10 @@ class NewsViewController: UIViewController {
     private let networkService = NetworkService()
     private var news: [News] = []
 
+    // MARK: - Public Property
+
+    var symbol = ""
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -28,12 +32,14 @@ class NewsViewController: UIViewController {
         }
 
         requestNews()
+
+        print("❗️❗️❗️\(symbol)❗️❗️❗️")
     }
 
     // MARK: - Private Methods
 
     private func requestNews() {
-        networkService.requestNewsFor(symbol: "aapl") { [weak self] response in
+        networkService.requestNewsFor(symbol: symbol) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .failure(let error):

@@ -36,6 +36,8 @@ class StockDetailsViewController: UIViewController {
 
     var symbol: String = ""
 
+    var sendSymbolClosure: ((String) -> Void)?
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -45,6 +47,9 @@ class StockDetailsViewController: UIViewController {
 
         menuViewController.delegate = self
         setupLayout()
+
+        print(symbol)
+        sendSymbolClosure?(symbol)
     }
 
     // MARK: - Private Methods
@@ -88,6 +93,7 @@ extension StockDetailsViewController {
         let item = Int(scrollView.contentOffset.x / view.frame.width)
         let indexPath = IndexPath(item: item, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+        collectionView.reloadItems(at: [indexPath])
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -121,6 +127,10 @@ extension StockDetailsViewController: UICollectionViewDataSource {
             guard let newsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsContainerCell.reuseId, for: indexPath) as? NewsContainerCell else {
                 return UICollectionViewCell()
             }
+
+            print("👹👹👹\(symbol)👹👹👹")
+            newsCell.symbol = symbol
+
             return newsCell
         }
     }

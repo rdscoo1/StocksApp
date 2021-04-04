@@ -42,7 +42,7 @@ class NewsCell: UITableViewCell {
         summary.snp.makeConstraints {
             $0.top.equalTo(headline.snp.bottom).offset(4)
             $0.left.right.equalTo(headline)
-            $0.bottom.equalToSuperview().offset(8)
+            $0.bottom.equalToSuperview().offset(-8)
         }
     }
 }

@@ -8,10 +8,24 @@ class NewsContainerCell: UICollectionViewCell {
 
     private let newsViewController = NewsViewController()
 
+    // MARK: - Public Property
+
+    var symbol = ""
+
     // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        let vc = StockDetailsViewController()
+        vc.sendSymbolClosure = { [weak self] symbol in
+            print("Hello")
+            print(symbol)
+        }
+
+        print("⚡️⚡️⚡️\(symbol)⚡️⚡️⚡️")
+
+        newsViewController.symbol = symbol
 
         guard let newsViewControllerView = newsViewController.view else {
             return

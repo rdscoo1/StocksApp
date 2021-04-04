@@ -90,12 +90,12 @@ class StockCell: UITableViewCell {
     // MARK: - Life Cycle
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-         super.setHighlighted(highlighted, animated: animated)
-         if highlighted {
-             containerView.backgroundColor = Constants.Colors.cellHighlightedBackground
-         } else {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            containerView.backgroundColor = Constants.Colors.cellHighlightedBackground
+        } else {
             containerView.backgroundColor = Constants.Colors.cellBackground
-         }
+        }
     }
 
     // MARK: - Private Methods
@@ -201,11 +201,8 @@ class StockCell: UITableViewCell {
 // MARK: - ConfigurableView 
 
 extension StockCell: ConfigurableView {
-    func setupImage(with logoModel: Logo) {
-        logoImageView.loadImage(by: logoModel.url)
-    }
-
     func configure(with model: Stock) {
+        logoImageView.loadImage(by: model.companyLogoUrl)
         symbolLabel.text = model.symbol
         companyNameLabel.text = model.companyName
         priceLabel.text = "\(model.latestPrice) $"
