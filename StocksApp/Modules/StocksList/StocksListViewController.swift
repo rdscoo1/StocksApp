@@ -6,9 +6,18 @@ class StocksListViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var stocks: [Stock] = []
-    private let networkService = NetworkService()
-    private let tableViewDataSource = StocksListTableViewDataSource()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+
+    lazy var presenter: StockListViewOutput = {
+        let presenter = StockListPresenter()
+        presenter.coordinator = StockListCoordinator(viewController: self)
+        presenter.view = self
+        return presenter
+    }()
 
     // MARK: - UI
 
@@ -19,6 +28,7 @@ class StocksListViewController: UIViewController {
         tableView.rowHeight = 64
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.alpha = 0.0
         return tableView
     }()
 
@@ -27,44 +37,30 @@ class StocksListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Constants.Colors.appTheme
         tableView.backgroundColor = Constants.Colors.appTheme
+
         configureConstraints()
-        requestCompanies()
         configureNavBarButton()
+
+        presenter.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setAppearance()
     }
 
     // MARK: - Private Methods
 
-    private func requestCompanies() {
-        networkService.requestCompaniesList { [weak self] response in
-            guard let self = self else { return }
-            switch response {
-            case .failure(let error):
-                print(error.reason)
-            case .success(let items):
-                self.stocks = items
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    private func requestQuote() {
-        for (index, stock) in stocks.enumerated() {
-            networkService.requestQuote(for: stock.symbol) { response in
-                switch response {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let item):
-                    self.stocks[index].symbol = item.symbol
-                    self.stocks[index].latestPrice = item.latestPrice
-                    self.stocks[index].change = item.change
-                }
-            }
-        }
-    }
-
     private func configureConstraints() {
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+
+        activityIndicator.snp.makeConstraints {
+            $0.height.width.equalTo(80)
+            $0.center.equalToSuperview()
+        }
 
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -78,9 +74,19 @@ class StocksListViewController: UIViewController {
     }
 
     @objc private func didTapOnSettings() {
-        let settingsViewController = SettingsViewController()
-        let navController = UINavigationController(rootViewController: settingsViewController)
-        navigationController?.present(navController, animated: true)
+        presenter.didTapOnSettings()
+    }
+
+    private func setAppearance() {
+        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+
+        if appearanceSelection == 0 {
+            overrideUserInterfaceStyle = .unspecified
+        } else if appearanceSelection == 1 {
+            overrideUserInterfaceStyle = .light
+        } else {
+            overrideUserInterfaceStyle = .dark
+        }
     }
 }
 
@@ -89,7 +95,7 @@ class StocksListViewController: UIViewController {
 extension StocksListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stocks.count
+        return presenter.stocks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,7 +103,7 @@ extension StocksListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let quote = stocks[indexPath.row]
+        let quote = presenter.stocks[indexPath.row]
         cell.configure(with: quote)
 
         return cell
@@ -112,13 +118,23 @@ extension StocksListViewController: UITableViewDelegate {
             return
         }
 
-        let stockDetailsVC = StockDetailsViewController()
-        let stock = stocks[selectedIndex.row]
-        stockDetailsVC.symbol = stock.symbol
-
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationController?.pushViewController(stockDetailsVC, animated: true)
-
+        presenter.didSelectRow(indexPath: selectedIndex)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension StocksListViewController: StockListViewInput {
+    func applyState(_ state: StockListViewState) {
+        switch state {
+        case .loading:
+            activityIndicator.startAnimating()
+            tableView.alpha = 0
+        case .loaded:
+            activityIndicator.stopAnimating()
+            tableView.alpha = 1
+            tableView.reloadData()
+        case .error(let message):
+             print(message)
+        }
     }
 }
