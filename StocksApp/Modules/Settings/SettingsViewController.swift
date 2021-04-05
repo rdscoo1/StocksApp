@@ -34,20 +34,20 @@ class SettingsViewController: UIViewController {
     private lazy var supportItems: [Setting] = SettingsProvider.shared.getSettingsSupport()
 
     // Links
-    let appStoreURLStringForRating = "itms-apps://apple.com/app/id1534974973"
-    let appStoreURLStringForShareSheet = "https://apps.apple.com/us/app/id1534974973"
-    let gitHubURLString = "https://github.com/rdscoo1"
-    let supportEmail = "romakhodukin@gmail.com"
+    private let appStoreURLStringForRating = "itms-apps://apple.com/app/id1534974973"
+    private let appStoreURLStringForShareSheet = "https://apps.apple.com/us/app/id1534974973"
+    private let gitHubURLString = "https://github.com/rdscoo1"
+    private let supportEmail = "romakhodukin@gmail.com"
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = Constants.LocalizationKey.settings.string
         view.backgroundColor = .white
 
         setupUI()
         setupLayout()
-        setupNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,21 +60,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupUI() {
-        //        let supportItems: [Setting] = SettingsProvider.shared.getSettingsSupport()
-
         sections += [.appearance, .support(supportItems), .about]
-    }
-
-    private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Скрыть",
-                                                           style: .done,
-                                                           target: self,
-                                                           action: #selector(dismissVC))
-        navigationItem.title = Constants.LocalizationKey.settings.string
-    }
-
-    @objc private func dismissVC() {
-        dismiss(animated: true)
     }
 
     private func setupLayout() {
@@ -117,10 +103,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func setAppearance() {
-
-        let defaults = UserDefaults.standard
-        let appearanceSelection = defaults.integer(forKey: "appearanceSelection")
-//        appearanceSegmentedControl.selectedSegmentIndex = appearanceSelection
+        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
 
         if appearanceSelection == 0 {
             overrideUserInterfaceStyle = .unspecified
@@ -157,6 +140,10 @@ extension SettingsViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
 
+            appearanceCell.appearanceSelectedCallback = { [weak self] in
+                self?.setAppearance()
+            }
+
             return appearanceCell
         case .support(let items):
             guard let supportCell = tableView.dequeueReusableCell(withIdentifier: SettingsSupportCell.reuseId, for: indexPath) as? SettingsSupportCell else {
@@ -182,6 +169,14 @@ extension SettingsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return Constants.LocalizationKey.appearance.string
+        } else {
+            return ""
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         switch indexPath {

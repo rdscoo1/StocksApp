@@ -3,14 +3,29 @@
 
 "Stocks" = "Stocks";
 
+// MARK: - Stock Details
+
+"Chart" = "Chart";
+"Summary" = "Summary";
+"News" = "News";
+
 // MARK: - Settings
 
 "Settings" = "Settings";
+
+// Appearance
+"Appearance" = "Appearance";
+"Adaptive" = "Adaptive";
+"Light" = "Light";
+"Dark" = "Dark";
+
+// Support
 "Leave a rating" = "Leave a rating";
 "Support the developer's free side project!" = "Support the developer's free side project!";
 "Share the app" = "Share the app";
 "Share this app with your friends!" = "Share this app with your friends!";
 "Send feedback" = "Send feedback";
 "Email thoughts, bugs, or questions." = "Email thoughts, bugs, or questions.";
+
 "Developed by" =  "Developed by";
 "Version" = "Version";

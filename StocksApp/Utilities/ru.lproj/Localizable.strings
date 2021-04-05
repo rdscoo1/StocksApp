@@ -3,14 +3,30 @@
 
 "Stocks" = "Акции";
 
+// MARK: - Stock Details
+
+"Chart" = "График";
+"Summary" = "О компании";
+"News" = "Новости";
+
 // MARK: - Settings
 
 "Settings" = "Настройки";
+
+// Appearance
+"Appearance" = "Оформление";
+"Adaptive" = "Адаптивная";
+"Light" = "Светлая";
+"Dark" = "Темная";
+
+// Support
+
 "Leave a rating" = "Оценить приложение";
 "Support the developer's free side project!" = "Поддержите бесплатный проект разработчика!";
 "Share the app" = "Поделиться приложением";
 "Share this app with your friends!" = "Поделитесь этим приложением с друзьями!";
 "Send feedback" = "Обратная связь";
 "Email thoughts, bugs, or questions." = "Присылайте баги или вопросы по электронной почте.";
+
 "Developed by" =  "Разработано";
 "Version" = "Версия";

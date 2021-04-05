@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func createNavigationController() -> UINavigationController {
         let stockListVC = StocksListViewController()
-        stockListVC.title = "Stocks"
+        stockListVC.title = Constants.LocalizationKey.stocks.string
 
         return UINavigationController(rootViewController: stockListVC)
     }
