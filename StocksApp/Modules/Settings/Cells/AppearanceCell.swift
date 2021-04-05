@@ -7,20 +7,24 @@ class AppearanceCell: UITableViewCell {
     // MARK: - UI
 
     private lazy var appearanceSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Adaptive", "Light Theme", "Dark Theme"])
+        let segmentedControl = UISegmentedControl(items: [Constants.LocalizationKey.adaptive.string,
+                                                          Constants.LocalizationKey.light.string,
+                                                          Constants.LocalizationKey.dark.string])
         segmentedControl.addTarget(self, action: #selector(appearanceValueChanged), for: .valueChanged)
         return segmentedControl
     }()
 
     // MARK: - Public Property
 
-    var themeSelectedCallback: ((Int) -> Void)?
+    var appearanceSelectedCallback: (() -> Void)?
 
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+        appearanceSegmentedControl.selectedSegmentIndex = appearanceSelection
         setupLayout()
     }
 
@@ -37,35 +41,22 @@ class AppearanceCell: UITableViewCell {
         }
     }
 
-    private func setAppearance() {
-        let defaults = UserDefaults.standard
-        let appearanceSelection = defaults.integer(forKey: "appearanceSelection")
-        appearanceSegmentedControl.selectedSegmentIndex = appearanceSelection
-        themeSelectedCallback?(appearanceSelection)
-
-        if appearanceSelection == 0 {
-            overrideUserInterfaceStyle = .unspecified
-        } else if appearanceSelection == 1 {
-            overrideUserInterfaceStyle = .light
-        } else {
-            overrideUserInterfaceStyle = .dark
-        }
-    }
-
     @objc private func appearanceValueChanged(_ sender: Any) {
         let defaults = UserDefaults.standard
 
         if appearanceSegmentedControl.selectedSegmentIndex == 0 {
-            overrideUserInterfaceStyle = .unspecified
             defaults.setValue(0, forKey: "appearanceSelection")
+            overrideUserInterfaceStyle = .unspecified
         } else if appearanceSegmentedControl.selectedSegmentIndex == 1 {
-            overrideUserInterfaceStyle = .light
             defaults.setValue(1, forKey: "appearanceSelection")
+            overrideUserInterfaceStyle = .light
         } else if appearanceSegmentedControl.selectedSegmentIndex == 2 {
-            overrideUserInterfaceStyle = .dark
             defaults.setValue(2, forKey: "appearanceSelection")
+            overrideUserInterfaceStyle = .dark
         } else {
             print("selection error")
         }
+        
+        appearanceSelectedCallback?()
     }
 }

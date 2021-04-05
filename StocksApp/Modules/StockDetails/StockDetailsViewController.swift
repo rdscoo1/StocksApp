@@ -1,9 +1,7 @@
 import UIKit
 
-enum Cells {
-    case chart
-    case news
-    case summary
+protocol SymbolSettable where Self: UIViewController {
+    var symbol: String { get set }
 }
 
 class StockDetailsViewController: UIViewController {
@@ -11,18 +9,17 @@ class StockDetailsViewController: UIViewController {
     // MARK: - UI
 
     private let menuViewController = MenuController(collectionViewLayout: UICollectionViewFlowLayout())
-    private let cells: [Cells] = [.chart, .summary, .news]
 
     private lazy var collectionView: UICollectionView = {
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.dataSource = self
-        cv.delegate = self
-        cv.backgroundColor = .white
-        cv.showsVerticalScrollIndicator = false
-        cv.showsHorizontalScrollIndicator = false
-        cv.isPagingEnabled = true
-        cv.bounces = false
-        return cv
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.bounces = false
+        return collectionView
     }()
 
     private lazy var layout: UICollectionViewFlowLayout = {
@@ -32,11 +29,24 @@ class StockDetailsViewController: UIViewController {
         return layout
     }()
 
+    private lazy var viewControllers: [UIViewController] = {
+        let viewControllers: [UIViewController] = [ChartViewController(), SummaryViewController(), NewsViewController()]
+        for viewController in viewControllers {
+            addChildContentViewController(viewController)
+        }
+        return viewControllers
+    }()
+
+    // MARK: - ChildViewControllers
+
+    private func addChildContentViewController(_ childViewController: UIViewController) {
+        addChild(childViewController)
+        childViewController.didMove(toParent: self)
+    }
+
     // MARK: - Public Property
 
     var symbol: String = ""
-
-    var sendSymbolClosure: ((String) -> Void)?
 
     // MARK: - Life Cycle
 
@@ -47,19 +57,32 @@ class StockDetailsViewController: UIViewController {
 
         menuViewController.delegate = self
         setupLayout()
+    }
 
-        print(symbol)
-        sendSymbolClosure?(symbol)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        setAppearance()
     }
 
     // MARK: - Private Methods
 
+    private func setAppearance() {
+        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+
+        if appearanceSelection == 0 {
+            overrideUserInterfaceStyle = .unspecified
+        } else if appearanceSelection == 1 {
+            overrideUserInterfaceStyle = .light
+        } else {
+            overrideUserInterfaceStyle = .dark
+        }
+    }
+
     private func setupLayout() {
 
         // registering cells (viewControllers)
-        collectionView.register(ChartContainerCell.self, forCellWithReuseIdentifier: ChartContainerCell.reuseId)
-        collectionView.register(SummaryContainerCell.self, forCellWithReuseIdentifier: SummaryContainerCell.reuseId)
-        collectionView.register(NewsContainerCell.self, forCellWithReuseIdentifier: NewsContainerCell.reuseId)
+        collectionView.register(HostedViewCell.self, forCellWithReuseIdentifier: HostedViewCell.reuseIdentifier)
 
         guard let menuView = menuViewController.view else { return }
 
@@ -93,13 +116,13 @@ extension StockDetailsViewController {
         let item = Int(scrollView.contentOffset.x / view.frame.width)
         let indexPath = IndexPath(item: item, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
-        collectionView.reloadItems(at: [indexPath])
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let x = targetContentOffset.pointee.x
         let item = Int(x / view.frame.width)
         let indexPath = IndexPath(item: item, section: 0)
+        print("indexPath: \(indexPath), item: \(item)")
         menuViewController.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
 }
@@ -108,31 +131,20 @@ extension StockDetailsViewController {
 
 extension StockDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return viewControllers.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch cells[indexPath.row] {
-        case .chart:
-            guard let chartCell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartContainerCell.reuseId, for: indexPath) as? ChartContainerCell else {
-                return UICollectionViewCell()
-            }
-            return chartCell
-        case.summary:
-            guard let summaryCell = collectionView.dequeueReusableCell(withReuseIdentifier: SummaryContainerCell.reuseId, for: indexPath) as? SummaryContainerCell else {
-                return UICollectionViewCell()
-            }
-            return summaryCell
-        case .news:
-            guard let newsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsContainerCell.reuseId, for: indexPath) as? NewsContainerCell else {
-                return UICollectionViewCell()
-            }
-
-            print("👹👹👹\(symbol)👹👹👹")
-            newsCell.symbol = symbol
-
-            return newsCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HostedViewCell.reuseIdentifier, for: indexPath) as? HostedViewCell else {
+            fatalError("Expected cell with reuse identifier: \(HostedViewCell.reuseIdentifier)")
         }
+
+        let viewController = viewControllers[indexPath.row]
+
+        cell.hostedView = viewController.view
+        (viewController as? SymbolSettable)?.symbol = symbol
+
+        return cell
     }
 }
 
@@ -150,6 +162,15 @@ extension StockDetailsViewController: UICollectionViewDelegateFlowLayout {
 
 extension StockDetailsViewController: MenuControllerDelegate {
     func didTapMenuItem(indexPath: IndexPath) {
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+
+        // Delegate method implementation (scroll to the right page when the corresponding Menu "Button"(Item) is pressed
+        if #available(iOS 14.0, *) { // bug with collectionView paging in iOS 14
+            let rect = self.collectionView.layoutAttributesForItem(at: indexPath)?.frame
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.collectionView.scrollRectToVisible(rect!, animated: false)
+            })
+        } else {
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
 }

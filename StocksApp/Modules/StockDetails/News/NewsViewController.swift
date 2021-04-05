@@ -32,8 +32,6 @@ class NewsViewController: UIViewController {
         }
 
         requestNews()
-
-        print("❗️❗️❗️\(symbol)❗️❗️❗️")
     }
 
     // MARK: - Private Methods
@@ -70,3 +68,5 @@ extension NewsViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension NewsViewController: SymbolSettable { }

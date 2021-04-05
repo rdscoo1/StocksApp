@@ -8,7 +8,7 @@ class MenuController: UICollectionViewController {
 
     // MARK: - Private Properties
 
-    private let menuItemNames = ["Chart", "Summary", "News"]
+    private let menuItemNames = [Constants.LocalizationKey.chart.string, Constants.LocalizationKey.summary.string, Constants.LocalizationKey.news.string]
 
     lazy var menuBar: UIView = {
         let view = UIView()
@@ -68,6 +68,13 @@ extension MenuController {
 
 extension MenuController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if #available(iOS 14.0, *) { // bug with collectionView paging in iOS 14
+            let x = view.frame.width / 3 * CGFloat(indexPath.item)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.menuBar.transform = CGAffineTransform(translationX: x, y: 0)
+            })
+        }
+
         delegate?.didTapMenuItem(indexPath: indexPath)
     }
 }

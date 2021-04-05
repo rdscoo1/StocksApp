@@ -45,7 +45,7 @@ class AboutCell: UITableViewCell {
     private lazy var developerHashtagButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.setTitle("@rdscoo1", for: .normal)
         button.addTarget(self, action: #selector(didTapDeveloperHashtag), for: .touchUpInside)
         return button
