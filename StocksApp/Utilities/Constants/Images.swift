@@ -3,6 +3,7 @@ import UIKit
 extension UIImage {
     static let appIconForSettings = UIImage(imageLiteralResourceName: "AppIconForSettings")
     static let settingsIcon = UIImage(imageLiteralResourceName: "SettingsIcon")
+    static let backIcon = UIImage(imageLiteralResourceName: "BackIcon")
 
     // MARK: - StocksList Icons
     

@@ -103,7 +103,9 @@ class SettingsViewController: UIViewController {
     }
 
     private func setAppearance() {
-        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+        guard let appearanceSelection = UserDefaults.standard.appearanceSelected else {
+            return
+        }
 
         if appearanceSelection == 0 {
             overrideUserInterfaceStyle = .unspecified

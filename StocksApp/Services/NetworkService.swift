@@ -77,6 +77,8 @@ class NetworkService {
         let configuration = createConfiguration()
         let session = URLSession(configuration: configuration)
 
+        print(request)
+
         session.dataTask(with: request) { (data, response, error) in
 //                        print("↩️ ↩️ ↩️ Data request: \(String(describing: String(data: data ?? Data(), encoding: .utf8)))")
             guard error == nil else {

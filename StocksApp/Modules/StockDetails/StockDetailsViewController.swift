@@ -68,7 +68,9 @@ class StockDetailsViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setAppearance() {
-        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+        guard let appearanceSelection = UserDefaults.standard.appearanceSelected else {
+            return
+        }
 
         if appearanceSelection == 0 {
             overrideUserInterfaceStyle = .unspecified
@@ -141,8 +143,8 @@ extension StockDetailsViewController: UICollectionViewDataSource {
 
         let viewController = viewControllers[indexPath.row]
 
-        cell.hostedView = viewController.view
         (viewController as? SymbolSettable)?.symbol = symbol
+        cell.hostedView = viewController.view
 
         return cell
     }

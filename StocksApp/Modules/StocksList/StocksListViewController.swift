@@ -28,7 +28,7 @@ class StocksListViewController: UIViewController {
         tableView.rowHeight = 64
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.alpha = 0.0
+        tableView.alpha = 0
         return tableView
     }()
 
@@ -78,7 +78,9 @@ class StocksListViewController: UIViewController {
     }
 
     private func setAppearance() {
-        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+        guard let appearanceSelection = UserDefaults.standard.appearanceSelected else {
+            return
+        }
 
         if appearanceSelection == 0 {
             overrideUserInterfaceStyle = .unspecified

@@ -23,7 +23,9 @@ class AppearanceCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        let appearanceSelection = UserDefaults.standard.integer(forKey: "appearanceSelection")
+        guard let appearanceSelection = UserDefaults.standard.appearanceSelected else {
+            return
+        }
         appearanceSegmentedControl.selectedSegmentIndex = appearanceSelection
         setupLayout()
     }
@@ -42,16 +44,14 @@ class AppearanceCell: UITableViewCell {
     }
 
     @objc private func appearanceValueChanged(_ sender: Any) {
-        let defaults = UserDefaults.standard
-
         if appearanceSegmentedControl.selectedSegmentIndex == 0 {
-            defaults.setValue(0, forKey: "appearanceSelection")
+            UserDefaults.standard.appearanceSelected = 0
             overrideUserInterfaceStyle = .unspecified
         } else if appearanceSegmentedControl.selectedSegmentIndex == 1 {
-            defaults.setValue(1, forKey: "appearanceSelection")
+            UserDefaults.standard.appearanceSelected = 1
             overrideUserInterfaceStyle = .light
         } else if appearanceSegmentedControl.selectedSegmentIndex == 2 {
-            defaults.setValue(2, forKey: "appearanceSelection")
+            UserDefaults.standard.appearanceSelected = 2
             overrideUserInterfaceStyle = .dark
         } else {
             print("selection error")

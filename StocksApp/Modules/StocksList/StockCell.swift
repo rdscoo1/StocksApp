@@ -14,13 +14,13 @@ class StockCell: UITableViewCell {
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
     private lazy var symbolLabel: UILabel = {
         let label = UILabel()
-        label.text = "sfgsdgadgasdagsgsagsaadffadgdfgdfa"
+        label.text = "symbol"
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = Constants.Colors.label
